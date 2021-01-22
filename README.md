@@ -190,7 +190,7 @@ Create menu options:
       while (userHasChosenToExit == false)
         {
           Console.ForegroundColor = ConsoleColor.Blue;
-          BannerMessage("Welcome to First Bank Of Suncoast!!! ");
+          BannerMessage("~~~~~~ CH RECORDS ~~~~~~");
           Console.WriteLine();
           Console.WriteLine();
           Console.WriteLine("MENU OPTIONS:");
@@ -208,4 +208,9 @@ Create menu options:
                   {
                     userHasChosenToEXIT = true;
                   }
+
+
+
+
+
         }
