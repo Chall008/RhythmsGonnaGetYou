@@ -44,17 +44,11 @@ namespace RhythmsGonnaGetYou
                 {
                     userHasChosenToExit = true;
                 }
-                switch (choice)
-                {
-                    // case "ARTISTS":
+                // switch (choice)
+                // {
 
-
-
-
-
-
-
-                }
+                // }
+                // case "ARTISTS":
 
 
 

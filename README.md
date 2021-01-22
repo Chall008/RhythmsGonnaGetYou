@@ -114,7 +114,7 @@ static void BannerMessage(string message)
 
 Create a class for: Bands, Albums, Songs, and Context.
 
-class Artists
+class Artist
 {
 public int Id {get; set; }
 public string Name {get; set; }
@@ -149,7 +149,7 @@ optionsBuidlder.UseNpgsql("server=localhost;database=RhythmsGonnaGetYou");
 
 }
 
-class Albums
+class Album
 {
 public int Id {get; set; }
 public string Title {get; set;}
@@ -161,7 +161,7 @@ public int ArtistId {get; set; }
 
 }
 
-class Songs
+class Song
 {
 public int Id {get; set;}
 public int TrackNumber {get; set;}
@@ -209,8 +209,8 @@ Create menu options:
                     userHasChosenToEXIT = true;
                   }
 
-
-
-
-
         }
+
+ARTISTS:
+View all artists in the database.
+List<Artist>
