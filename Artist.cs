@@ -1,6 +1,6 @@
 namespace RhythmsGonnaGetYou
 {
-    public class Artist
+    public class Artists
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -10,5 +10,8 @@ namespace RhythmsGonnaGetYou
         public bool IsSigned { get; set; }
         public string ContactName { get; set; }
         public int ContactPhoneNumber { get; set; }
+        public string Style { get; set; }
+
+
     }
 }
