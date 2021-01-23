@@ -50,20 +50,33 @@ namespace RhythmsGonnaGetYou
                 }
                 switch (choice)
                 {
-                    case "ARTISTS":
+                    case "ARTIST":
 
-                        artist.OrderBy(artistName => artistName.Name);
+                        artists.OrderBy(artistName => artistName.Name);
                         Console.WriteLine();
                         Console.WriteLine("Here are all our artists!");
                         Console.WriteLine();
+                        foreach (var artist in artists)
+                        {
+                            Console.WriteLine($"Artist name: {artist.Name}");
+                            Console.WriteLine($"From: {artists.CountryOfOrigin}");
+                            Console.WriteLine($"{artists.NumberOfMembers} member/members");
+                            Console.WriteLine($"Website: {artists.Website}");
+                            Console.WriteLine($"Contact: {artists.ContactName} {artist.ContactPhoneNumber}");
+                            Console.WriteLine($"Genre: {artist.Style}");
+
+                        }
                         Console.WriteLine();
-                        Console.WriteLine("Would you like to add a new artist, yes or no?);
+                        Console.WriteLine("Would you like to add a new artist, yes or no?");
                         var option = Console.ReadLine().ToUpper().Trim();
                         if (option == "yes")
+                        {
 
 
+                        }
 
-                            break;
+
+                        break;
 
                     case "ALBUMS":
 
@@ -71,6 +84,19 @@ namespace RhythmsGonnaGetYou
                         albums.OrderBy(albumsDate => albumsDate.ReleaseDate);
                         Console.WriteLine();
                         Console.WriteLine("This is our collection of albums!");
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("Would you like to add an album, yes or no?");
+                        var yesOrNo = Console.ReadLine().ToUpper().Trim();
+                        if (yesOrNo == "yes")
+                        {
+
+                            Console.WriteLine(" ")
+
+
+                        }
+
+
 
 
 
@@ -78,9 +104,16 @@ namespace RhythmsGonnaGetYou
 
                     case "SONGS":
 
-                        songs.OrderBy( => artistName.Name);
+                        songs.OrderBy(songTitle => songTitle.Title);
                         Console.WriteLine();
-                        Console.WriteLine("Here are all our artists!");
+                        Console.WriteLine("Here are all your songs!");
+                        foreach (var song in songs)
+                        {
+                            Console.WriteLine($" Track number{song.TrackNumber}, title{song.Title}, and duration{song.Duration}.");
+
+
+
+                        }
 
 
                         break;
