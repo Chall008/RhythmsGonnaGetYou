@@ -41,7 +41,7 @@ namespace RhythmsGonnaGetYou
                 Console.WriteLine("ALBUMS - View all albums");
                 Console.WriteLine("SONGS - View all songs");
                 Console.WriteLine("UNSIGNED - All our unsigned artists");
-                Console.WriteLine("RELEASE - Release an artist")
+                Console.WriteLine("RELEASE - Release an artist");
                 Console.WriteLine("EXIT - Exit the application");
                 Console.WriteLine();
                 Console.WriteLine("Please chose one.");
@@ -63,10 +63,10 @@ namespace RhythmsGonnaGetYou
                         foreach (var artist in artists)
                         {
                             Console.WriteLine($"Artist name: {artist.Name}");
-                            Console.WriteLine($"From: {artists.CountryOfOrigin}");
-                            Console.WriteLine($"{artists.NumberOfMembers} member/members");
-                            Console.WriteLine($"Website: {artists.Website}");
-                            Console.WriteLine($"Contact: {artists.ContactName} {artist.ContactPhoneNumber}");
+                            Console.WriteLine($"From: {artist.CountryOfOrigin}");
+                            Console.WriteLine($"{artist.NumberOfMembers} member/members");
+                            Console.WriteLine($"Website: {artist.Website}");
+                            Console.WriteLine($"Contact: {artist.ContactName} {artist.ContactPhoneNumber}");
                             Console.WriteLine($"Genre: {artist.Style}");
 
                         }
@@ -78,6 +78,16 @@ namespace RhythmsGonnaGetYou
                         var option = Console.ReadLine().ToUpper().Trim();
                         if (option == "yes")
                         {
+                            //this is how we add an artist(s)
+                            var newArtist = new Artists
+                            {
+                                Name =
+                            CountryOfOrigin =
+                            NumberOfMembers =
+                            Website =
+                            ContactName =
+                            ContactNumber =
+                            };
 
 
                         }
@@ -100,15 +110,16 @@ namespace RhythmsGonnaGetYou
                         var yesOrNo = Console.ReadLine().ToUpper().Trim();
                         if (yesOrNo == "yes")
                         {
-
-                            Console.WriteLine(" ")
-
+                            //add a new album
+                            var newAlbum = new Albums
+                            {
+                                Title =
+                                IsExplicit =
+                                ReleaseDate =
+                                ArtistId =
+                            };
 
                         }
-
-
-
-
 
                         break;
 
@@ -139,7 +150,12 @@ namespace RhythmsGonnaGetYou
                         //not sure how to tie in the artist to user choice.
                         // if = "no" then return to menu
                         //update the the unsigned artists to reflect user choice
-
+                        // var existingArtist= context.Artists.FirstOrDefault(band => band.Name == )
+                        // if (existingArtist != null) 
+                        // {
+                        // context.Artist.Remove(existingArtist);
+                        // context.SaveChanges();
+                        // };
 
                         break;
 

@@ -300,6 +300,12 @@ Create menu options:
                         //not sure how to tie in the artist to user choice.
                       // if = "no" then return to menu
                       //update the the unsigned artists to reflect user choice
+                       // var existingArtist= context.Artists.FirstOrDefault(band => band.Name == )
+                        // if (existingArtist != null)
+                        // {
+                        // context.Artist.Remove(existingArtist);
+                        // context.SaveChanges();
+                        // };
 
 
                         break;
