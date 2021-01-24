@@ -35,7 +35,7 @@ namespace RhythmsGonnaGetYou
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine("MENU OPTIONS:");
-                Console.WriteLine("ARTISTS - View all artists");
+                Console.WriteLine("ARTISTS - View all signed artists");
                 Console.WriteLine("ADD ARTIST - Add a new artist.");
                 Console.WriteLine("ALBUMS - View all albums");
                 Console.WriteLine("ADD ALBUMS - Add a new album");
@@ -57,39 +57,65 @@ namespace RhythmsGonnaGetYou
                     case "ARTISTS":
 
                         //show all the artists by name and show all the info assoctiated with that artist.
-                        var viewArtists = context.Artists;
+                        var viewArtists = context.Artists.Where(Artist => Artist.IsSigned);
                         viewArtists.OrderBy(artistOrder => artistOrder.Name);
                         Console.WriteLine();
                         Console.WriteLine("Here are all our artists!");
                         Console.WriteLine();
+
                         foreach (var artist in viewArtists)
                         {
                             Console.WriteLine($"Artist name: {artist.Name}");
 
                         }
-                        //ask the user if they want to add an artist
-                        //if "yes" then prompt user to fill out the proper info
-                        //if "no" return to menu
-                        // Console.WriteLine();
-                        // Console.WriteLine("Would you like to add a new artist, y/n?");
-                        // var option = Console.ReadLine().ToUpper().Trim()
-
                         break;
 
 
                     case "ADD ARTIST":
+
+
+                        var newArtist = new Artist();
+                        Console.WriteLine();
+                        Console.WriteLine("What's the name of the new artist?");
+                        var userAddsArtist = Console.ReadLine();
+                        Console.WriteLine($"Where is {userAddsArtist}from?");
+                        var userAddsCountry = Console.ReadLine();
+                        Console.WriteLine($"How many members are with {userAddsArtist}?");
+                        var userAddsMembers = int.Parse(Console.ReadLine());
+                        Console.WriteLine("What is their website?");
+                        var userAddsWebsite = Console.ReadLine();
+                        Console.WriteLine($"Is {userAddsArtist} signed?");
+                        var userSigned = Console.ReadLine();
+                        if (userSigned == "yes")
+                        {
+                            newArtist.IsSigned = true;
+
+                        }
+                        else
+                        {
+                            newArtist.IsSigned = false;
+
+                        }
+                        Console.WriteLine($"Can I get a contact name for {userAddsArtist}?");
+                        var userContactName = Console.ReadLine();
+                        Console.WriteLine($"Can I also get a contact phone number for {userAddsArtist}");
+                        var userContactPhone = int.Parse(Console.ReadLine());
+                        Console.WriteLine($"Lastly, what is {userAddsArtist}'s style?");
+                        var userStyle = Console.ReadLine();
+                        Console.WriteLine($"Thank you for adding {userAddsArtist} to CH Records!");
+
+                        newArtist.Name = userAddsArtist;
+                        newArtist.CountryOfOrigin = userAddsCountry;
+                        newArtist.NumberOfMembers = userAddsMembers;
+                        newArtist.Website = userAddsWebsite;
+                        newArtist.ContactName = userContactName;
+                        newArtist.ContactPhoneNumber = userContactPhone;
+                        newArtist.Style = userStyle;
+
+                        context.Artists.Add(newArtist);
+                        context.SaveChanges();
+
                         break;
-                    // //     var newArtist = new Artists
-                    // //     {
-                    // //         Name =
-                    // //     CountryOfOrigin =
-                    // //     NumberOfMembers =
-                    // //     Website =
-                    // //     ContactName =
-                    // //     ContactNumber =
-                    // //     };
-                    // //     context.Bands.Add(newBand);
-                    // //     context.SaveChanges();
 
                     case "ALBUMS":
 
@@ -114,35 +140,51 @@ namespace RhythmsGonnaGetYou
 
                         break;
                     case "ADD ALBUM":
-                        //     var newAlbum = new Albums
-                        //     {
-                        //         Title =
-                        //         IsExplicit =
-                        //         ReleaseDate =
-                        //         ArtistId =
-                        //     };
-                        //     context.Albums.Add(newAlbums);
-                        //     context.SaveChanges();
 
+                        var newAlbum = new Album();
+                        Console.WriteLine();
+                        Console.WriteLine("What is the name of the new album?");
+                        var albumName = Console.ReadLine();
+                        Console.WriteLine($"Is {albumName} explict?");
+                        var albumExplicit = Console.ReadLine();
+                        if (albumExplicit == "yes")
+                        {
+                            newAlbum.IsExplicit = true;
 
+                        }
+                        else
+                        {
+                            newAlbum.IsExplicit = false;
+
+                        }
+                        Console.WriteLine($"When was {albumName} released? ");
+                        var albumReleased = Console.ReadLine();
+                        Console.WriteLine($"Who is the {albumName} by?");
+                        var newAlbumArtist = context.Artists.FirstOrDefault(artist => artist.Name == Console.ReadLine());
+
+                        newAlbum.Title = albumName;
+                        newAlbum.ReleaseDate = albumReleased;
+                        newAlbum.ArtistId = newAlbumArtist.Id;
+
+                        context.Albums.Add(newAlbum);
+                        context.SaveChanges();
 
 
                         break;
 
                     case "SONGS":
 
-                        // // var allSongs = context.Songs.Include(song => song.Album).ThenInclude(Album => Album.Artist);
-                        // // allSongs.OrderBy(songOrders => songOrders.TrackNumber);
-                        // Console.WriteLine();
-                        // Console.WriteLine("Here are all your songs!");
-                        // // Console
-                        // // foreach (var song in allSongs)
-                        // // {
-                        // //     Console.WriteLine($" Song title: {song.Title} ");
-                        // //     Console.WriteLine($" Artist: {song.Album.Artist.Name} ");
-                        // //     Console.WriteLine($" Album: { song.Album.Title} ");
+                        var allSongs = context.Songs.Include(song => song.Album).ThenInclude(Album => Album.Artist);
+                        Console.WriteLine();
+                        Console.WriteLine("Here are all your songs!");
+                        Console.WriteLine();
+                        foreach (var song in allSongs)
+                        {
+                            Console.WriteLine($" Song title: {song.Title} ");
+                            Console.WriteLine($" Artist: {song.Album.Artist.Name} ");
+                            Console.WriteLine($" Album: { song.Album.Title} ");
 
-                        // // }
+                        }
 
 
                         break;
@@ -150,32 +192,72 @@ namespace RhythmsGonnaGetYou
 
                     case "ADD SONGS":
 
-                        //     var newSong = new Songs
-                        //     {
-                        //         Title =
-                        //         IsExplicit =
-                        //         ReleaseDate =
-                        //         ArtistId =
-                        //     };
-                        //     context.Albums.Add(newAlbums);
-                        //     context.SaveChanges();
+                        var newAddedSong = new Song();
+                        Console.WriteLine();
+                        Console.WriteLine("Can I get the title of the new song?");
+                        var newTitle = Console.ReadLine();
+                        Console.WriteLine($"How long is {newTitle}?");
+                        var newDuration = Console.ReadLine();
+                        Console.WriteLine("What is the tracknumber?");
+                        var newTrackNumber = int.Parse(Console.ReadLine());
+                        Console.WriteLine($"Which album does {newTitle} belong to?");
+                        var newSongAlbum = context.
+
+
+                        newAddedSong.Title = newTitle;
+                        newAddedSong.Duration = newDuration;
+                        newAddedSong.TrackNumber = newTrackNumber;
+                        newAddedSong.AlbumId = newSongAlbum.Id;
+
+
+
+
+                        context.Songs.Add(newAddedSong);
+                        context.SaveChanges();
 
 
                         break;
 
                     case "UNSIGNED":
 
+                        // var viewArtists = context.Artists;
+                        // viewArtists.OrderBy(artistOrder => artistOrder.Name);
+                        // Console.WriteLine();
+                        // Console.WriteLine("Here are all our artists!");
+                        // Console.WriteLine();
+                        // foreach (var artist in viewArtists)
+                        // {
+                        //     Console.WriteLine($"Artist name: {artist.Name}");
+
+                        // }
+                        // break;
+                        var viewAUnsignedArtists = context.Artists.Where(Artist => Artist.IsSigned == false);
+                        Console.WriteLine();
+                        Console.WriteLine("Take a look at our up and coming artists!");
+                        Console.WriteLine();
+                        foreach (var artist in viewAUnsignedArtists)
+                        {
+
+                            Console.WriteLine($"Name {artist.Name}");
+
+                        }
+
+
 
                         break;
                     case "RELEASE":
 
 
-                        // var existingArtist= context.Artists.FirstOrDefault(band => band.Name == )
-                        // if (existingArtist != null) 
-                        // {
-                        // context.Artist.Remove(existingArtist);
-                        // context.SaveChanges();
-                        // };
+                        var existingArtist = context.Artists.FirstOrDefault(Artist => Artist.Name == )
+                        Console.WriteLine("What is the artist name you would like to release?");
+                        var releasedName = Console.ReadLine();
+
+
+                        if (existingArtist != null)
+                        {
+                            context.Artists.Remove(existingArtist);
+                            context.SaveChanges();
+                        };
 
                         break;
 
