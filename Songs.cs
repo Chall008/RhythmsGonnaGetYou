@@ -1,13 +1,13 @@
 namespace RhythmsGonnaGetYou
 {
-    public class Songs
+    public class Song
     {
         public int Id { get; set; }
         public int TrackNumber { get; set; }
         public string Title { get; set; }
         public int Duration { get; set; }
         public int AlbumId { get; set; }
-        public Albums Albums { get; set; }
+        public Album Album { get; set; }
 
     }
 }
