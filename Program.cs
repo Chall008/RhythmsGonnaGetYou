@@ -37,7 +37,7 @@ namespace RhythmsGonnaGetYou
                 Console.WriteLine("ADD ALBUM - Add a new album.");
                 Console.WriteLine("SONGS - View all songs.");
                 Console.WriteLine("ADD SONGS - Add a new song.");
-                Console.WriteLine("UNSIGNED - View all unsigned artist and sign one to CH Records.");
+                Console.WriteLine("UNSIGNED - View any unsigned artist and sign one to CH Records.");
                 Console.WriteLine("RELEASE - Release an artist.");
                 Console.WriteLine("EXIT - Exit the application.");
                 Console.WriteLine();
@@ -237,7 +237,7 @@ namespace RhythmsGonnaGetYou
                         break;
 
                     case "UNSIGNED":
-
+                        // var unsignedArtist = new Artist();
                         var viewUnsignedArtists = context.Artists.Where(Artist => Artist.IsSigned == false);
                         Console.WriteLine();
                         Console.WriteLine("Please choose one of the artist below to sign!");
@@ -249,27 +249,19 @@ namespace RhythmsGonnaGetYou
 
                         }
                         var userArtist = Console.ReadLine();
-                        // if ()
-
-                        //     {
-                        //         Artist.IsSigned = true;
-                        //         Console.WriteLine($"{viewUnsignedArtists.Name} is now apart of the CH Records family!");
-                        //     }
-
+                        var resignedArtist = context.Artists.FirstOrDefault(Artist => Artist.Name == userArtist);
+                        resignedArtist.IsSigned = true;
                         context.SaveChanges();
 
                         break;
+
                     case "RELEASE":
 
                         Console.WriteLine("What is the artist name you would like to release?");
                         var releasedName = Console.ReadLine();
                         var existingArtist = context.Artists.FirstOrDefault(Artist => Artist.Name == releasedName);
-                        if (existingArtist.IsSigned = false)
-                        {
-                            Console.WriteLine($"{existingArtist.Name} was released from CH Records.");
-                        }
+                        existingArtist.IsSigned = false;
                         context.SaveChanges();
-
 
                         break;
 
