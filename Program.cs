@@ -10,7 +10,6 @@ namespace RhythmsGonnaGetYou
 
         static void BannerMessage(string message)
         {
-            //  Create a greeting and a goodbye: BannerMessage();
 
             Console.WriteLine();
             Console.WriteLine();
@@ -19,8 +18,6 @@ namespace RhythmsGonnaGetYou
             Console.WriteLine();
 
         }
-
-        //static void 
         static void Main(string[] args)
         {
             var context = new RhythmsGonnaGetYouContext();
@@ -37,7 +34,7 @@ namespace RhythmsGonnaGetYou
                 Console.WriteLine("ARTISTS - View all signed artists");
                 Console.WriteLine("ADD ARTIST - Add a new artist.");
                 Console.WriteLine("ARTIST ALBUMS - View an artist and their albums!");
-                Console.WriteLine("ALBUMS - View all albums");
+                Console.WriteLine("ALL ALBUMS - View all albums");
                 Console.WriteLine("ADD ALBUM - Add a new album");
                 Console.WriteLine("SONGS - View all songs");
                 Console.WriteLine("ADD SONGS - Add a new song");
@@ -118,20 +115,19 @@ namespace RhythmsGonnaGetYou
                         break;
 
 
-                    case "ARTIST ALBUMS":
-                    //capture a string 
-                    //compare a list of strings to the list of Artist
-                    //look albums that this artist can contain
-                    //build upon that 
+                    // case "ARTIST ALBUMS":
+                    // // capture a string 
+                    // // compare a list of strings to the list of Artist
+                    // // look albums that this artist can contain
+                    // // build upon that 
+
                     // var artistAndAlbums = context.Artists.FirstOrDefault(artist => artist.Name);
                     // Console.WriteLine();
                     // Console.WriteLine("Which artist are you looking for?");
                     // var userInput = Console.ReadLine();
 
 
-
-
-                    case "ALBUMS":
+                    case "ALL ALBUMS":
 
                         var viewAlbums = context.Albums.Include(Album => Album.Artist);
                         viewAlbums.OrderBy(albumsDate => albumsDate.ReleaseDate);
@@ -240,19 +236,14 @@ namespace RhythmsGonnaGetYou
                         break;
                     case "RELEASE":
 
+                        Console.WriteLine("What is the artist name you would like to release?");
+                        var releasedName = Console.ReadLine();
+                        var existingArtist = context.Artists.FirstOrDefault(artist => artist.Name == releasedName);
+                        existingArtist.IsSigned = false;
+                        context.SaveChanges();
 
-                    // var existingArtist = context.Artists.FirstOrDefault(artist => artist.Name);
-                    // Console.WriteLine("What is the artist name you would like to release?");
-                    // var releasedName = Console.ReadLine();
 
-
-                    // if (existingArtist != null)
-                    // {
-                    //     context.Artists.Remove(existingArtist);
-                    //     context.SaveChanges();
-                    // };
-
-                    // break;
+                        break;
 
 
                     default:
@@ -260,7 +251,6 @@ namespace RhythmsGonnaGetYou
 
 
                 }
-
 
 
                 BannerMessage("~~~~~~ Thanks for visiting CH Records! ~~~~~~");
