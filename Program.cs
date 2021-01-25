@@ -31,16 +31,15 @@ namespace RhythmsGonnaGetYou
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine("MENU OPTIONS:");
-                Console.WriteLine("ARTISTS - View all signed artists");
+                Console.WriteLine("ARTISTS - View all signed artists.");
                 Console.WriteLine("ADD ARTIST - Add a new artist.");
-                Console.WriteLine("ARTIST ALBUMS - View an artist and their albums!");
-                Console.WriteLine("ALL ALBUMS - View all albums");
-                Console.WriteLine("ADD ALBUM - Add a new album");
-                Console.WriteLine("SONGS - View all songs");
-                Console.WriteLine("ADD SONGS - Add a new song");
-                Console.WriteLine("UNSIGNED - Take a look at our unsigned artists");
-                Console.WriteLine("RELEASE - Release an artist");
-                Console.WriteLine("EXIT - Exit the application");
+                Console.WriteLine("ALBUMS - View all albums.");
+                Console.WriteLine("ADD ALBUM - Add a new album.");
+                Console.WriteLine("SONGS - View all songs.");
+                Console.WriteLine("ADD SONGS - Add a new song.");
+                Console.WriteLine("UNSIGNED - View all unsigned artist and sign one to CH Records.");
+                Console.WriteLine("RELEASE - Release an artist.");
+                Console.WriteLine("EXIT - Exit the application.");
                 Console.WriteLine();
                 Console.WriteLine("Please chose one.");
                 var choice = Console.ReadLine().ToUpper().Trim();
@@ -62,7 +61,7 @@ namespace RhythmsGonnaGetYou
 
                         foreach (var artist in viewArtists)
                         {
-                            Console.WriteLine($"Artist name: {artist.Name}");
+                            Console.WriteLine($"{artist.Name}");
 
                         }
                         break;
@@ -96,7 +95,7 @@ namespace RhythmsGonnaGetYou
                         Console.WriteLine($"Can I get a contact name for {userAddsArtist}?");
                         var userContactName = Console.ReadLine();
                         Console.WriteLine($"Can I also get a contact phone number for {userAddsArtist}");
-                        var userContactPhone = int.Parse(Console.ReadLine());
+                        var userContactPhone = Console.ReadLine();
                         Console.WriteLine($"Lastly, what is {userAddsArtist}'s style?");
                         var userStyle = Console.ReadLine();
                         Console.WriteLine($"Thank you for adding {userAddsArtist} to CH Records!");
@@ -127,7 +126,7 @@ namespace RhythmsGonnaGetYou
                     // var userInput = Console.ReadLine();
 
 
-                    case "ALL ALBUMS":
+                    case "ALBUMS":
 
                         var viewAlbums = context.Albums.Include(Album => Album.Artist);
                         viewAlbums.OrderBy(albumsDate => albumsDate.ReleaseDate);
@@ -137,9 +136,25 @@ namespace RhythmsGonnaGetYou
                         foreach (var album in viewAlbums)
                         {
 
-                            Console.WriteLine($" Album {album.Title} by {album.Artist.Name}");
+                            Console.WriteLine($" {album.Title} created by {album.Artist.Name}");
+                            if (album.IsExplicit)
+                            {
+                                Console.WriteLine(" PARENTAL ADVISORY: Explicit");
+                                Console.WriteLine();
+
+                            }
+                            else
+                            {
+                                Console.WriteLine(" Not Explicit");
+                                Console.WriteLine();
+
+                            }
+
+
 
                         }
+
+
 
                         break;
 
@@ -187,6 +202,7 @@ namespace RhythmsGonnaGetYou
                             Console.WriteLine($" Song title: {song.Title} ");
                             Console.WriteLine($" Artist: {song.Album.Artist.Name} ");
                             Console.WriteLine($" Album: { song.Album.Title} ");
+                            Console.WriteLine();
 
                         }
 
@@ -205,7 +221,7 @@ namespace RhythmsGonnaGetYou
                         Console.WriteLine("What is the tracknumber?");
                         var newTrackNumber = int.Parse(Console.ReadLine());
                         Console.WriteLine($"Which album does {newTitle} belong to?");
-                        var newSongAlbum = context.Albums.FirstOrDefault(album => album.Title == Console.ReadLine());
+                        var newSongAlbum = context.Albums.FirstOrDefault(Album => Album.Title == Console.ReadLine());
 
 
                         newAddedSong.Title = newTitle;
@@ -222,24 +238,36 @@ namespace RhythmsGonnaGetYou
 
                     case "UNSIGNED":
 
-                        var viewAUnsignedArtists = context.Artists.Where(Artist => Artist.IsSigned == false);
+                        var viewUnsignedArtists = context.Artists.Where(Artist => Artist.IsSigned == false);
                         Console.WriteLine();
-                        Console.WriteLine("Take a look at our up and coming artists!");
+                        Console.WriteLine("Please choose one of the artist below to sign!");
                         Console.WriteLine();
-                        foreach (var artist in viewAUnsignedArtists)
+                        foreach (var artist in viewUnsignedArtists)
                         {
-
-                            Console.WriteLine($"Name {artist.Name}");
+                            Console.WriteLine($"{artist.Name}");
+                            Console.WriteLine();
 
                         }
+                        var userArtist = Console.ReadLine();
+                        // if ()
+
+                        //     {
+                        //         Artist.IsSigned = true;
+                        //         Console.WriteLine($"{viewUnsignedArtists.Name} is now apart of the CH Records family!");
+                        //     }
+
+                        context.SaveChanges();
 
                         break;
                     case "RELEASE":
 
                         Console.WriteLine("What is the artist name you would like to release?");
                         var releasedName = Console.ReadLine();
-                        var existingArtist = context.Artists.FirstOrDefault(artist => artist.Name == releasedName);
-                        existingArtist.IsSigned = false;
+                        var existingArtist = context.Artists.FirstOrDefault(Artist => Artist.Name == releasedName);
+                        if (existingArtist.IsSigned = false)
+                        {
+                            Console.WriteLine($"{existingArtist.Name} was released from CH Records.");
+                        }
                         context.SaveChanges();
 
 
